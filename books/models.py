@@ -40,6 +40,7 @@ class Author(models.Model):
     biography = models.TextField()
     birth_year = models.IntegerField()
 
+
     def __str__(self):
         return self.name
 
