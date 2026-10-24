@@ -32,13 +32,6 @@ class ListForm(forms.ModelForm):
 
             }
 
-        # def clean_birth_year(self):
-        #     year = self.cleaned_data['birth_year']
-        #     current_year = datetime.datetime.now().year
-        #
-        #     if year and year > current_year:
-        #         raise forms.ValidationError('The birth year cannot be in the future')
-        #     return year
 
 
 class ReadingListItemForm(forms.ModelForm):
@@ -47,7 +40,6 @@ class ReadingListItemForm(forms.ModelForm):
         fields = [
             'reading_list',
             'book',
-            'added_at',
             'notes'
         ]
 
@@ -75,9 +67,15 @@ class ReadingListItemForm(forms.ModelForm):
         }
 
     def clean(self):
+
         cleaned_data = super().clean()
+
+        if cleaned_data is None:
+            return cleaned_data
+
         reading_list = cleaned_data.get('reading_list')
         book = cleaned_data.get('book')
+
 
         if reading_list and book:
             duplicate = ReadingListItems.objects.filter(reading_list=reading_list, book=book)
@@ -85,7 +83,7 @@ class ReadingListItemForm(forms.ModelForm):
             if self.instance.pk:
                 duplicate = duplicate.exclude(pk=self.instance.pk)
 
-                if duplicate.exists():
-                    raise forms.ValidationError('This book already exists in this reading list')
+            if duplicate.exists():
+                raise forms.ValidationError('This book already exists in this reading list')
 
         return cleaned_data
