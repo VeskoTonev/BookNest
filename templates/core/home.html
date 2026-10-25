@@ -1,53 +1,110 @@
 {% extends "base.html" %}
-
-{% block title %}Home | ReadTrack{% endblock %}
+{% block title %}Home | BookNest{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <p class="eyebrow">YOUR PERSONAL READING SPACE</p>
-
-    <h1>Every book has a story.<br>
-        Track yours.</h1>
-
-    <p class="hero-description">
-        Organize your books, discover authors, and
-        reach your reading goals.
+<section class="home-hero-redesign">
+  <div class="hero-text-content">
+    <span class="hero-badge">✨ YOUR PERSONAL READING HUB</span>
+    <h1>Transform Your Reading Journey with <span class="highlight">BookNest</span></h1>
+    <p class="hero-subtitle">
+      Organize your private library, set goals, build curated collections, and explore world-class literature in one clean dashboard.
     </p>
-
-    <a href="{% url 'book_list' %}" class="btn btn-primary">
-        Explore my books
-    </a>
+    <div class="hero-cta-group">
+      <a href="{% url 'books:book_list' %}" class="btn btn-primary btn-lg">Browse My Library &rarr;</a>
+      <a href="{% url 'books:book_add' %}" class="btn btn-secondary btn-lg">+ Add Book</a>
+    </div>
+  </div>
 </section>
 
-<section class="dashboard-section">
-    <h2>Explore ReadTrack</h2>
-
-    <div class="card-grid">
-        <article class="feature-card">
-            <h3>My Books</h3>
-            <p>Browse and organize your reading collection.</p>
-            <a href="{% url 'book_list' %}">View books →</a>
-        </article>
-
-        <article class="feature-card">
-            <h3>Authors</h3>
-            <p>Discover authors and explore their works.</p>
-            <a href="{% url 'author_list' %}">View authors →</a>
-        </article>
-
-        <article class="feature-card">
-            <h3>Reading Lists</h3>
-            <p>Create collections of books for every mood.</p>
-            <a href="{% url 'reading_list_list' %}">
-                View lists →
-            </a>
-        </article>
-
-        <article class="feature-card">
-            <h3>Reading Goals</h3>
-            <p>Set targets and track your reading progress.</p>
-            <a href="{% url 'goal_list' %}">View goals →</a>
-        </article>
+<section class="home-quick-stats">
+  <div class="stats-card">
+    <span class="stats-icon">📚</span>
+    <div class="stats-info">
+      <h3>Explore Books</h3>
+      <p>Keep your reading statuses up to date.</p>
     </div>
+  </div>
+  <div class="stats-card">
+    <span class="stats-icon">✍️</span>
+    <div class="stats-info">
+      <h3>Discover Authors</h3>
+      <p>Follow storytellers and write-ups.</p>
+    </div>
+  </div>
+  <div class="stats-card">
+    <span class="stats-icon">🎯</span>
+    <div class="stats-info">
+      <h3>Set Reading Goals</h3>
+      <p>Track your yearly achievements.</p>
+    </div>
+  </div>
+</section>
+
+<section class="home-dashboard">
+  <div class="section-title text-center">
+    <h2>Your BookNest Toolkit</h2>
+    <p>Everything you need to organize your books in one place.</p>
+  </div>
+
+  <div class="flashcard-grid">
+    <!-- Card 1: Books -->
+    <article class="flashcard">
+      <div class="flashcard-media media-books">
+        <span class="flashcard-badge">01</span>
+        <span class="flashcard-emoji">📚</span>
+      </div>
+      <div class="flashcard-body">
+        <span class="flashcard-category">Library Management</span>
+        <h3>My Collection</h3>
+        <p>Browse your library, update statuses, and track ratings.</p>
+        <a href="{% url 'books:book_list' %}" class="flashcard-link">View Books &rarr;</a>
+      </div>
+    </article>
+
+    <!-- Card 2: Reading Lists -->
+    <article class="flashcard">
+      <div class="flashcard-media media-lists">
+        <span class="flashcard-badge">02</span>
+        <span class="flashcard-emoji">📂</span>
+      </div>
+      <div class="flashcard-body">
+        <span class="flashcard-category">Collections</span>
+        <h3>Reading Lists</h3>
+        <p>Organize books into custom collections and reading themes.</p>
+        <a href="{% url 'reading_list:list' %}" class="flashcard-link">View Lists &rarr;</a>
+      </div>
+    </article>
+
+    <!-- Card 3: Goals -->
+    <article class="flashcard">
+      <div class="flashcard-media media-goals">
+        <span class="flashcard-badge">03</span>
+        <span class="flashcard-emoji">🎯</span>
+      </div>
+      <div class="flashcard-body">
+        <span class="flashcard-category">Progress</span>
+        <h3>Reading Challenges</h3>
+        <p>Set yearly targets and measure your reading progress.</p>
+        <a href="{% url 'challenges:goal_list' %}" class="flashcard-link">View Goals &rarr;</a>
+      </div>
+    </article>
+
+    <!-- Card 4: Authors & Genres -->
+    <article class="flashcard">
+      <div class="flashcard-media media-authors">
+        <span class="flashcard-badge">04</span>
+        <span class="flashcard-emoji">🔖</span>
+      </div>
+      <div class="flashcard-body">
+        <span class="flashcard-category">Explore</span>
+        <h3>Authors & Genres</h3>
+        <p>Categorize books by genres and explore detailed author profiles.</p>
+        <div class="flashcard-links">
+          <a href="{% url 'books:author_list' %}" class="flashcard-link">Authors &rarr;</a>
+          <a href="{% url 'books:genre_list' %}" class="flashcard-link">Genres &rarr;</a>
+        </div>
+      </div>
+    </article>
+  </div>
 </section>
 {% endblock %}

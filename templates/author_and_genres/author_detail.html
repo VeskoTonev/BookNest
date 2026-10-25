@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}{{ genre.name }} Genre | BookNest{% endblock %}
 
-</body>
-</html>
+{% block content %}
+<article class="detail-container p-4">
+  <!-- Top Navigation & Action Header -->
+  <div class="detail-header d-flex justify-content-between align-items-center mb-4">
+    <a href="{% url 'books:genre_list' %}" class="btn btn-secondary">&larr; Back to Genres</a>
+
+    <div class="detail-actions d-flex gap-2">
+      <a href="{% url 'books:genre_update' genre.pk %}" class="btn btn-primary">Edit Genre</a>
+      <a href="{% url 'books:genre_delete' genre.pk %}" class="btn btn-danger">Delete Genre</a>
+    </div>
+  </div>
+
+  <div class="detail-body">
+    <span class="badge-gradient mb-2 d-inline-block">GENRE CATEGORY</span>
+    <h1 class="mb-3">{{ genre.name }}</h1>
+
+    <div class="description-box mb-4">
+      <h3>Description</h3>
+      <p>{{ genre.description|default:"No description available for this genre."|linebreaks }}</p>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="genre-books-section">
+      <h3>Books in {{ genre.name }}</h3>
+      {% if genre.books.all %}
+        <div class="content-grid mt-3">
+          {% for book in genre.books.all %}
+            <div class="content-card p-3">
+              <h4>{{ book.title }}</h4>
+              <p class="text-muted">By {{ book.author.name }} ({{ book.publication_year }})</p>
+              <a href="{% url 'books:book_details' book.pk %}" class="text-link">View Book &rarr;</a>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted">There are currently no books tagged with this genre.</p>
+      {% endif %}
+    </div>
+  </div>
+</article>
+{% endblock %}

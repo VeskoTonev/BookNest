@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}My Reading Lists | BookNest{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <p class="eyebrow">Curate your next adventure</p>
+        <h1>Reading lists</h1>
+        <p>Group books into collections that make sense to you.</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'reading_list:create' %}">
+        + Create list
+    </a>
+</section>
+
+{% if lists %}
+<div class="content-grid">
+    {% for reading_list in lists %}
+    <article class="content-card">
+        <div class="card-symbol" aria-hidden="true">▤</div>
+        <h2>{{ reading_list.name }}</h2>
+        <p>{{ reading_list.description|truncatewords:22 }}</p>
+        <a class="text-link"
+           href="{% url 'reading_list:detail' reading_list.pk %}">
+            Open collection →
+        </a>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <h2>Your collections start here</h2>
+    <p>Create a list for books you want to read, favourites, or a special theme.</p>
+    <a class="btn btn-primary" href="{% url 'reading_list:create' %}">
+        Create your first list
+    </a>
+</div>
+{% endif %}
+{% endblock %}

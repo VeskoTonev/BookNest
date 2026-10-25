@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<header class="site-header">
+  <div class="nav-container">
+    <a href="{% url 'home' %}" class="brand-logo">
+      <span class="logo-icon">📚</span> BookNest
+    </a>
+    <nav class="main-nav">
+      <a href="{% url 'books:book_list' %}" class="nav-link">Books</a>
+      <a href="{% url 'books:author_list' %}" class="nav-link">Authors</a>
+      <a href="{% url 'books:genre_list' %}" class="nav-link">Genres</a>
+      <a href="{% url 'reading_list:list' %}" class="nav-link">Reading Lists</a>
+      <a href="{% url 'challenges:goal_list' %}" class="nav-link">Goals</a>
+    </nav>
+  </div>
+</header>

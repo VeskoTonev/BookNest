@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<footer class="site-footer">
+  <div class="footer-container">
+    <p>&copy; {% now "Y" %} BookNest. Your personal reading space.</p>
+    <div class="footer-links">
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'books:book_list' %}">Browse Collection</a>
+    </div>
+  </div>
+</footer>

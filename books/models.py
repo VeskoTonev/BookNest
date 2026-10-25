@@ -30,6 +30,7 @@ class Book(models.Model):
     completed_at = models.DateTimeField(null=True, blank=True)
     author = models.ForeignKey('Author', on_delete=models.CASCADE)
     genres = models.ManyToManyField('Genre', related_name='books')
+    cover_image = models.ImageField(upload_to = 'books_covers/', null = True, blank = True)
 
     def __str__(self):
         return self.title

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit {{ object.name }} | ReadTrack{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="page-header">
+        <h1>Edit Reading List</h1>
+        <p class="subtitle">Update list details and manage included books.</p>
+    </div>
+
+    <form method="post" class="custom-form">
+        {% csrf_token %}
+
+        <section class="form-section">
+            <h2>List Details</h2>
+            
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">List Name</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="field-error">{{ form.name.errors|striptags }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="field-error">{{ form.description.errors|striptags }}</div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h2>Books in this List</h2>
+            {{ item_formset.management_form }}
+
+            {% if item_formset.non_form_errors %}
+                <div class="form-error">{{ item_formset.non_form_errors|striptags }}</div>
+            {% endif %}
+
+            <div class="formset-grid">
+                {% for item_form in item_formset %}
+                    <div class="formset-card">
+                        {% for hidden in item_form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+
+                        <div class="form-group">
+                            <label for="{{ item_form.book.id_for_label }}">Select Book</label>
+                            {{ item_form.book }}
+                            {% if item_form.book.errors %}
+                                <div class="field-error">{{ item_form.book.errors|striptags }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ item_form.notes.id_for_label }}">Personal Notes</label>
+                            {{ item_form.notes }}
+                            {% if item_form.notes.errors %}
+                                <div class="field-error">{{ item_form.notes.errors|striptags }}</div>
+                            {% endif %}
+                        </div>
+
+                        {% if item_formset.can_delete and item_form.instance.pk %}
+                            <div class="form-group checkbox-group">
+                                <label class="delete-label">
+                                    {{ item_form.DELETE }} Delete this item
+                                </label>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'books:reading_list_details' object.pk %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django import forms
-
+from django.forms import inlineformset_factory
 from reading_list.models import ReadingList, ReadingListItems
 
 
@@ -87,3 +87,22 @@ class ReadingListItemForm(forms.ModelForm):
                 raise forms.ValidationError('This book already exists in this reading list')
 
         return cleaned_data
+
+ReadingListItemFormSet = inlineformset_factory(
+    parent_model = ReadingList,
+    model = ReadingListItems,
+    form = ReadingListItemForm,
+    fields = ['book', 'notes'],
+    extra = 1,
+    can_delete = True,
+    widgets = {
+    "book": forms.Select(attrs = {"class": "form-input"}),
+    "notes": forms.Textarea(attrs = {
+        "class" : "form-input",
+        "rows": "2",
+        "placeholder": "Optional notes"
+    })
+
+    }
+
+)

@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Genres | BookNest{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <p class="eyebrow">Find your next read</p>
+        <h1>Genres</h1>
+        <p>Explore books by mood, theme or category.</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'books:genre_add' %}">
+        + Add genre
+    </a>
+</section>
+
+{% if genres %}
+<div class="content-grid">
+    {% for genre in genres %}
+    <article class="content-card">
+        <div class="card-symbol" aria-hidden="true">◈</div>
+        <h2>{{ genre.name }}</h2>
+        <p>{{ genre.description|truncatewords:25 }}</p>
+        <a class="text-link"
+           href="{% url 'books:genre_details' genre.pk %}">
+            Explore genre →
+        </a>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <h2>No genres yet</h2>
+    <p>Create genres to organize your book collection.</p>
+    <a class="btn btn-primary" href="{% url 'books:genre_add' %}">
+        Add your first genre
+    </a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,44 @@
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #f0f7ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+    --surface: #ffffff;
+    --surface-glass: rgba(255, 255, 255, 0.85);
+    --primary: #1e293b;
+    --primary-hover: #0f172a;
+    --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --danger-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* Apply Body Gradient */
+body {
+    background: var(--bg-gradient);
+    background-attachment: fixed; /* Ensures seamless full-screen gradient */
+    color: var(--text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+}
+
+/* Glassmorphism Card Effect */
+.content-card,
+.detail-container,
+.form-container,
+.confirm-card {
+    background: var(--surface-glass) !important;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+}
+
+/* Gradient Header Badges & Links */
+.badge-gradient {
+    background: var(--accent-gradient);
+    color: #ffffff;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.825rem;
+    font-weight: 700;
+}

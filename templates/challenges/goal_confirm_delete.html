@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Delete {{ goal.year }} Goal | BookNest{% endblock %}
+
+{% block content %}
+<div class="confirm-container" style="max-width: 580px; margin: 40px auto;">
+  <div class="confirm-card border-danger">
+    <div class="confirm-header header-danger p-3 bg-danger text-white rounded-top">
+      <h2 class="h4 mb-0">Delete Reading Goal</h2>
+    </div>
+
+    <div class="confirm-body p-4">
+      <p class="lead">
+        Are you sure you want to delete your <strong>{{ goal.year }} Reading Goal</strong> of <strong>{{ goal.target_book }} books</strong>?
+      </p>
+      
+      <p class="text-muted">
+        This action is permanent and will remove this annual goal from your dashboard. Your saved books will not be deleted.
+      </p>
+
+      <form method="post" class="confirm-actions d-flex gap-2 mt-4">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete Goal</button>
+        <a href="{% url 'challenges:goal_detail' goal.pk %}" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

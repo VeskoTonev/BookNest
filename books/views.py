@@ -30,7 +30,7 @@ class BookCreateView(SuccessMessageMixin, CreateView):
 
     def get_success_url(self):
 
-        return reverse("books:book-details",kwargs = {"pk": self.object.pk})
+        return reverse("books:book_details", kwargs = {"pk": self.object.pk})
 
 
 class BookUpdateView(SuccessMessageMixin, UpdateView):
@@ -40,7 +40,7 @@ class BookUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "Book's updated successfully"
 
     def get_success_url(self):
-        return reverse("books:book-details", kwargs = {"pk": self.object.pk})
+        return reverse("books:book_details", kwargs = {"pk": self.object.pk})
 
 class BookDeleteView(SuccessMessageMixin, DeleteView):
     model = Book
@@ -57,7 +57,7 @@ class BookDeleteView(SuccessMessageMixin, DeleteView):
 
 class AuthorListView(ListView):
     model = Author
-    template_name = "author_and_genres/author_detail.html"
+    template_name = "author_and_genres/author_list.html"
     context_object_name = "authors"
     ordering = ['name']
 
@@ -83,7 +83,7 @@ class AuthorUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "Author's updated successfully"
 
     def get_success_url(self):
-        return reverse_lazy("books:author_detail", kwargs = {"pk": self.object.pk})
+        return reverse_lazy("books:author_details", kwargs = {"pk": self.object.pk})
 
 class AuthorDeleteView(SuccessMessageMixin, DeleteView):
     model = Author
@@ -100,7 +100,7 @@ class AuthorDeleteView(SuccessMessageMixin, DeleteView):
 class GenreListView(ListView):
     model = Genre
     template_name = "author_and_genres/genre_list.html"
-    context_object_name = "genre"
+    context_object_name = "genres"
     ordering = ['name']
 
 class GenreDetailsView(DetailView):
@@ -115,7 +115,7 @@ class GenreCreateView(SuccessMessageMixin, CreateView):
     success_message = "Genre's saved successfully"
 
     def get_success_url(self):
-        return reverse_lazy("books:genre_detail", kwargs = {"pk": self.object.pk})
+        return reverse_lazy("books:genre_details",kwargs = {"pk": self.object.pk})
 
 class GenreUpdateView(SuccessMessageMixin, UpdateView):
     model = Genre
@@ -124,7 +124,7 @@ class GenreUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "Genre's updated successfully"
 
     def get_success_url(self):
-        return reverse_lazy("books:genre_detail", kwargs = {"pk": self.object.pk})
+        return reverse_lazy("books:genre_details", kwargs = {"pk": self.object.pk})
 
 class GenreDeleteView(SuccessMessageMixin, DeleteView):
     model = Genre

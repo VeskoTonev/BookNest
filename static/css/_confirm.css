@@ -1,0 +1,46 @@
+.confirm-container {
+    max-width: 580px;
+    margin: 40px auto;
+}
+
+.confirm-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.confirm-card.border-danger {
+    border-color: #f87171;
+}
+
+.confirm-header {
+    padding: 20px 24px;
+    background: var(--background);
+    border-bottom: 1px solid var(--border);
+}
+
+.confirm-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--text);
+}
+
+.confirm-header.header-danger {
+    background: #fef2f2;
+    border-bottom-color: #fecaca;
+}
+
+.confirm-header.header-danger h2 {
+    color: #991b1b;
+}
+
+.confirm-body {
+    padding: 28px 24px;
+}
+
+.confirm-body .lead {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+}

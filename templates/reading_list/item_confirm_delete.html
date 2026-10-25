@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Remove {{ item.book.title }} | ReadTrack{% endblock %}
+
+{% block content %}
+<div class="confirm-container">
+    <div class="confirm-card">
+        <div class="confirm-header">
+            <h2>Remove Book from List</h2>
+        </div>
+        
+        <div class="confirm-body">
+            <p class="lead">
+                Are you sure you want to remove <strong>"{{ item.book.title }}"</strong> from your reading list <strong>"{{ item.reading_list.name }}"</strong>?
+            </p>
+
+            <p class="text-muted">This will only remove the book from this specific reading list. The book record itself will remain intact.</p>
+
+            <form method="post" class="confirm-actions">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Remove Book</button>
+                <a href="{% url 'reading_list:detail' item.reading_list.pk %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

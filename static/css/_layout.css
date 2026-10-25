@@ -1,0 +1,108 @@
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, h3, p {
+    margin-top: 0;
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+
+/* 2. Navigation */
+
+/* Site Header & Navbar Styling */
+.site-header {
+    background-color: #1e293b;            /* Modern dark slate header background */
+    border-bottom: 2px solid #0f172a;
+    padding: 0 1rem;
+}
+
+.navbar {
+    width: min(1200px, 94%);
+    min-height: 70px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #38bdf8 !important;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #f1f5f9;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    background-color: #334155;
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+/* Sticky Footer Setup */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Takes full height of browser screen */
+}
+
+.main-content {
+    flex: 1 0 auto; /* Expands dynamically to push footer to the absolute bottom */
+    width: min(1100px, 92%);
+    margin: 2rem auto;
+}
+
+.site-footer {
+    flex-shrink: 0; /* Keeps footer fixed at the bottom */
+    background-color: #0f172a;
+    color: #94a3b8;
+    padding: 1.5rem 0;
+    text-align: center;
+    width: 100%;
+}
+
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}

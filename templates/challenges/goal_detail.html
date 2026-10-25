@@ -1,10 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}{{ goal.year }} Reading Goal | BookNest{% endblock %}
 
-</body>
-</html>
+{% block content %}
+<article class="detail-container">
+  <div class="detail-header d-flex justify-content-between align-items-center mb-4">
+    <a href="{% url 'challenges:goal_list' %}" class="btn btn-secondary">&larr; Back to All Goals</a>
+    <div class="detail-actions d-flex gap-2">
+      <a href="{% url 'challenges:goal_update' goal.pk %}" class="btn btn-primary">Edit Goal</a>
+      <a href="{% url 'challenges:goal_delete' goal.pk %}" class="btn btn-danger">Delete Goal</a>
+    </div>
+  </div>
+
+  <div class="detail-body">
+    <div class="goal-detail-header text-center mb-4">
+      <span class="badge-gradient">ANNUAL CHALLENGE</span>
+      <h1 class="mt-2">{{ goal.year }} Reading Challenge</h1>
+      
+      {% if goal.is_completed %}
+        <span class="badge bg-success fs-6 mt-2">🎉 Goal Completed!</span>
+      {% else %}
+        <span class="badge bg-warning text-dark fs-6 mt-2">📖 Challenge In Progress</span>
+      {% endif %}
+    </div>
+
+    <!-- Progress Card -->
+    <div class="content-card p-4 mb-4">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h3><strong>Progress Overview</strong></h3>
+        <span class="fs-4 fw-bold text-primary">{{ goal.get_completed_count }} / {{ goal.target_book }} Books</span>
+      </div>
+
+      <div class="progress-track my-3" 
+           style="height: 20px; background-color: var(--border); border-radius: 10px; overflow: hidden;"
+           role="progressbar" 
+           aria-valuenow="{{ goal.get_progress_in_percentage }}" 
+           aria-valuemin="0" 
+           aria-valuemax="100">
+        <div class="progress-fill" 
+             style="width: {{ goal.get_progress_in_percentage }}%; height: 100%; background: var(--accent-gradient, #3b82f6); transition: width 0.4s ease;">
+        </div>
+      </div>
+
+      <p class="text-muted text-end mb-0">
+        <strong>{{ goal.get_progress_in_percentage }}%</strong> of your target achieved
+      </p>
+    </div>
+
+    <!-- Target Breakdown -->
+    <div class="row text-center g-3">
+      <div class="col-md-6">
+        <div class="content-card p-3">
+          <span class="text-muted d-block">Target Goal</span>
+          <h2 class="mb-0">{{ goal.target_book }}</h2>
+          <small class="text-muted">Books planned for {{ goal.year }}</small>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="content-card p-3">
+          <span class="text-muted d-block">Finished Books</span>
+          <h2 class="mb-0 text-success">{{ goal.get_completed_count }}</h2>
+          <small class="text-muted">Completed in {{ goal.year }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+{% endblock %}

@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Delete {{ book.title }} | BookNest{% endblock %}
 
-</body>
-</html>
+{% block content %}
+<div class="confirm-container">
+  <div class="confirm-card border-danger">
+    <div class="confirm-header header-danger">
+      <h2>Confirm Deletion</h2>
+    </div>
+    <div class="confirm-body">
+      <p class="lead">
+        Are you sure you want to delete <strong>"{{ book.title }}"</strong> by {{ book.author.name }}?
+      </p>
+      <p class="text-muted">This operation is permanent and cannot be undone.</p>
+      <form method="post" class="confirm-actions">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete Book</button>
+        <a href="{% url 'books:book_details' book.pk %}" class="btn btn-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -12,6 +12,7 @@ class BookRoomForm(forms.ModelForm):
             'title',
             'description',
             'publication_year',
+            'cover_image',
             'status',
             'rating',
             'author',
@@ -64,7 +65,7 @@ class BookRoomForm(forms.ModelForm):
 
     def clean_publication_year(self):
         year = self.cleaned_data['publication_year']
-        current_year = datetime.datetime.now().today()
+        current_year = datetime.datetime.now().today().year
 
         if year and year > current_year:
             raise forms.ValidationError('The publication cannot be later than the current year')
@@ -112,9 +113,6 @@ class AuthorForm(forms.ModelForm):
         if year and year > current_year:
             raise forms.ValidationError('The birth year cannot be in the future')
         return year
-
-
-
 
 class GenreForm(forms.ModelForm):
 

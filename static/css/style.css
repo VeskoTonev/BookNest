@@ -1,153 +1,53 @@
-
+@import url('_variables.css');
+@import url('_layout.css');
+@import url('_forms.css');
+@import url('_confirm.css');
+@import url('error.css');
+@import url('shared_css.css');
+@import url('home.css');
 /* 1. Global styles */
 
-:root {
-    --background: #f7f6f0;
-    --surface: #ffffff;
-    --primary: #245447;
-    --primary-hover: #193d34;
-    --text: #252b27;
-    --muted: #6d756f;
-    --border: #e3e6df;
-}
+
 
 * {
     box-sizing: border-box;
 }
-
-body {
-    margin: 0;
-    background: var(--background);
-    color: var(--text);
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-}
-
-a {
-    color: var(--primary);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-h1, h2, h3, p {
-    margin-top: 0;
-}
-
-.container {
-    width: min(1100px, 92%);
-    margin: 0 auto;
-    padding: 40px 0;
-}
-
-
-/* 2. Navigation */
-
-.site-header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-}
-
-.navbar {
-    width: min(1200px, 94%);
-    min-height: 76px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary);
-}
-
-.nav-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.nav-links a {
-    color: var(--text);
-}
-
-
-/* 3. Home page */
-
-.hero {
-    padding: 55px 0;
-    max-width: 720px;
-}
-
-.eyebrow {
-    color: var(--primary);
-    font-weight: bold;
-    letter-spacing: 2px;
-    font-size: 0.8rem;
-}
-
-.hero h1 {
-    font-size: clamp(2.3rem, 5vw, 4rem);
-    line-height: 1.15;
-    margin-bottom: 20px;
-}
-
-.hero-description {
-    color: var(--muted);
-    max-width: 520px;
-    margin-bottom: 28px;
-}
-
-.dashboard-section {
-    padding: 20px 0 45px;
-}
-
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-}
-
-.feature-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 26px;
-    transition: transform 0.2s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-3px);
-}
-
-.feature-card p {
-    color: var(--muted);
-}
+.
 
 
 /* 4. Buttons */
 
-.btn {
-    display: inline-block;
-    padding: 11px 20px;
-    border-radius: 7px;
-    font-weight: bold;
-    cursor: pointer;
+/* Primary & Action Buttons */
+.btn-primary,
+.home-button-primary {
+    background: #18181b !important;
+    color: #ffffff !important;
+    border: 1px solid #18181b !important;
+    font-weight: 700;
 }
 
-.btn-primary {
-    background: var(--primary);
-    color: white;
+.btn-primary:hover,
+.home-button-primary:hover {
+    background: #27272a !important;
+    color: #ffffff !important;
 }
 
-.btn-primary:hover {
-    background: var(--primary-hover);
-    text-decoration: none;
+/* Secondary / Outline Buttons (Fixes Invisible White Text) */
+.btn-secondary,
+.btn-outline,
+.home-button-outline {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+    font-weight: 700;
+}
+
+.btn-secondary:hover,
+.btn-outline:hover,
+.home-button-outline:hover {
+    background: #f8fafc !important;
+    color: #0f172a !important;
+    border-color: #94a3b8 !important;
 }
 
 
@@ -189,3 +89,111 @@ h1, h2, h3, p {
         padding: 30px 0;
     }
 }
+
+
+
+
+
+/* 8. Confirmation Cards & Alert Buttons */
+
+
+
+.text-muted {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.warning-box {
+    background: #fffbeb;
+    border: 1px solid #fef3c7;
+    color: #92400e;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 0.92rem;
+}
+
+.confirm-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    align-items: center;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-danger:hover {
+    background: #b91c1c;
+    text-decoration: none;
+}
+
+
+/* Fix Sticky Footer to bottom of the screen */
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Forces <main> to stretch dynamically and push footer to the absolute bottom */
+main.container {
+    flex: 1 0 auto;
+}
+
+/* Footer Pinning */
+.site-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+    width: 100%;
+}
+
+
+/*
+   READING LIST APP STYLES
+    */
+
+/* Detail Card Styling */
+.reading-list-detail-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+}
+
+/* Subtle Hover Effect for Book Cards within a List */
+.list-books-section .card {
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.list-books-section .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Form Controls Custom Focus State */
+.needs-validation input[type="text"],
+.needs-validation textarea,
+.needs-validation select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.95rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.needs-validation input[type="text"]:focus,
+.needs-validation textarea:focus,
+.needs-validation select:focus {
+    border-color: #0d6efd;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+

@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Authors | BookNest{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <div>
+        <p class="eyebrow">Meet the storytellers</p>
+        <h1>Authors</h1>
+        <p>Discover the writers behind your favourite books.</p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'books:author_add' %}">
+        + Add author
+    </a>
+</section>
+
+{% if authors %}
+<div class="content-grid">
+    {% for author in authors %}
+    <article class="content-card">
+        <div class="card-symbol" aria-hidden="true">✍</div>
+        <h2>{{ author.name }}</h2>
+        <p class="card-muted">
+            Born {{ author.birth_year }}
+        </p>
+        <p>{{ author.biography|truncatewords:24 }}</p>
+        <a class="text-link"
+           href="{% url 'books:author_details' author.pk %}">
+            View author →
+        </a>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <h2>Your author collection starts here</h2>
+    <p>Add an author before adding books by them.</p>
+    <a class="btn btn-primary" href="{% url 'books:author_add' %}">
+        Add your first author
+    </a>
+</div>
+{% endif %}
+{% endblock %}

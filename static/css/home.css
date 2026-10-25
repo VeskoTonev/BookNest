@@ -1,0 +1,214 @@
+
+/* BookNest homepage */
+.home-hero-redesign {
+  background: linear-gradient(135deg, #f0f7ff 0%, #e0e7ff 100%);
+  padding: 4rem 2rem;
+  border-radius: var(--radius);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: #dbeafe;
+  color: #1e40af;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+.hero-text-content h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.hero-text-content .highlight {
+  color: var(--primary-color);
+}
+
+.hero-subtitle {
+  max-width: 640px;
+  margin: 1rem auto 2rem;
+  font-size: 1.15rem;
+  color: var(--text-muted);
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Quick Stats Bar */
+.home-quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stats-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Center-aligned Section Title */
+.text-center {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* Flashcard Grid Layout */
+.flashcard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Flashcard Container */
+.flashcard {
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.flashcard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Top Media Header for Flashcards */
+.flashcard-media {
+  height: 110px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #245447 0%, #183c32 100%);
+}
+
+.media-books { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
+.media-lists { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
+.media-goals { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+.media-authors { background: linear-gradient(135deg, #10b981 0%, #047857 100%); }
+
+.flashcard-badge {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.flashcard-emoji {
+  font-size: 2.5rem;
+}
+
+/* Card Body Content */
+.flashcard-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.flashcard-category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e11d48;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
+}
+
+.flashcard-body h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
+  color: var(--text, #0f172a);
+}
+
+.flashcard-body p {
+  color: var(--muted, #64748b);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin-bottom: 1.25rem;
+}
+
+.flashcard-link {
+  margin-top: auto;
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+.flashcard-link:hover {
+  text-decoration: underline;
+}
+
+.flashcard-links {
+  margin-top: auto;
+  display: flex;
+  gap: 12px;
+}
+
+.stats-icon {
+  font-size: 2rem;
+}
+
+/* Book Details Grid & Cover Placeholder */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.detail-cover-img {
+  width: 100%;
+  border-radius: var(--radius);
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.detail-cover-placeholder {
+  width: 100%;
+  height: 360px;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  border-radius: var(--radius);
+}
+
+.genre-pill {
+  display: inline-block;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
