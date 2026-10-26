@@ -41,6 +41,12 @@ class BookRoomForm(forms.ModelForm):
                 'placeholder': "Write a brief summary of the book..."
             }),
 
+            'cover_image': forms.FileInput(attrs={
+                'class': "d-none",
+                'id': 'id_cover_image',
+                'accept': "image/*"
+            }),
+
             'publication_year': forms.NumberInput(attrs={
                 'class': "form-control",
                 "min": '1800',
@@ -126,7 +132,7 @@ class GenreForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': "form-control",
-                'placeholder': "Enter Author's name"
+                'placeholder': "Enter Genre's name"
             }),
         }
 

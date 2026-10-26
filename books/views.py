@@ -17,6 +17,36 @@ class BookListView(ListView):
     context_object_name = "books"
     ordering = ['title']
 
+
+    def get_queryset(self):
+        # search filter (by title)
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(title__icontains = query)
+
+         #Genre filter
+        genre_id = self.request.GET.get('genre')
+        if genre_id:
+            queryset = queryset.filter(genres__id = genre_id)
+
+        #Sorting
+        sort_by = self.request.GET.get('sort','title')
+        if sort_by in ['title','-title','publication_year','-publication_year']:
+            queryset = queryset.order_by(sort_by)
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['genres'] = Genre.objects.all()
+        context['selected_genre'] = self.request.GET.get('genre','')
+        context['selected_sort'] = self.request.GET.get('sort','title')
+        context['search_query'] = self.request.GET.get('q','')
+
+        return context
+
+
 class BookDetailsView(DetailView):
     model = Book
     template_name = "books/book_detail.html"

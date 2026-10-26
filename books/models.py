@@ -19,7 +19,9 @@ class Book(models.Model):
 
     title = models.CharField(max_length=150)
     description = models.TextField()
-    publication_year = models.PositiveIntegerField()
+    publication_year = models.PositiveIntegerField(
+        validators = [MinValueValidator(1901, message = "Publication year must be after 1900.")]
+    )
 
     status = models.CharField(max_length=30,
                               choices=StatusChoices.choices,
@@ -48,7 +50,7 @@ class Author(models.Model):
 #
 class Genre(models.Model):
     name = models.CharField(max_length=150)
-    description = models.TextField()
+    description = models.TextField(blank = True, null = True)
 
     def __str__(self):
         return self.name

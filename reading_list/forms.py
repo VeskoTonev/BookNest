@@ -66,6 +66,15 @@ class ReadingListItemForm(forms.ModelForm):
 
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.initial.get('reading_list'):
+            self.fields['reading_list'].disabled = True
+
+
+
+
     def clean(self):
 
         cleaned_data = super().clean()

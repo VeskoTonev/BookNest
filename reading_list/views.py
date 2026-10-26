@@ -30,14 +30,18 @@ class ReadingListDetailsView(DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        form = ReadingListItemForm(request.POST)
+
+        data = request.POST.copy()
+        data['reading_list'] = self.object.pk
+        form = ReadingListItemForm(data)
 
         if form.is_valid():
             item = form.save(commit=False)
+            item.reading_list = self.object
             item.save()
             messages.success(request, f"{item.book.title} added to {self.object}!")
             return redirect('reading_list:detail', pk = self.object.pk)
-        return self.render_to_response(self.get_context_data(form=form))
+        return self.render_to_response(self.get_context_data(item_form=form))
 
 class ReadingListCreateView(CreateView):
     model = ReadingList

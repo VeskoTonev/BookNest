@@ -11,13 +11,53 @@
   <a class="btn btn-primary px-3 py-2 shadow-sm" href="{% url 'books:book_add' %}">+ Add New Book</a>
 </section>
 
+<!-- SEARCH, FILTER & SORT BAR -->
+<form method="get" class="row g-3 mb-4 p-3 bg-white border rounded-4 shadow-sm align-items-end">
+  <!-- Search by Title -->
+  <div class="col-md-4">
+    <label for="q" class="form-label small fw-semibold text-secondary mb-1">Search Title</label>
+    <input type="text" id="q" name="q" value="{{ search_query }}" class="form-control" placeholder="Search by book title...">
+  </div>
+
+  <!-- Filter by Genre -->
+  <div class="col-md-3">
+    <label for="genre" class="form-label small fw-semibold text-secondary mb-1">Genre</label>
+    <select id="genre" name="genre" class="form-select">
+      <option value="">All Genres</option>
+      {% for genre in genres %}
+        <option value="{{ genre.id }}" {% if selected_genre == genre.id|stringformat:"s" %}selected{% endif %}>
+          {{ genre.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <!-- Sort By -->
+  <div class="col-md-3">
+    <label for="sort" class="form-label small fw-semibold text-secondary mb-1">Sort By</label>
+    <select id="sort" name="sort" class="form-select">
+      <option value="title" {% if selected_sort == "title" %}selected{% endif %}>Title (A-Z)</option>
+      <option value="-title" {% if selected_sort == "-title" %}selected{% endif %}>Title (Z-A)</option>
+      <option value="-publication_year" {% if selected_sort == "-publication_year" %}selected{% endif %}>Newest First</option>
+      <option value="publication_year" {% if selected_sort == "publication_year" %}selected{% endif %}>Oldest First</option>
+    </select>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="col-md-2 d-flex gap-2">
+    <button type="submit" class="btn btn-primary w-100">Filter</button>
+    <a href="{% url 'books:book_list' %}" class="btn btn-outline-secondary" title="Reset Filters">Reset</a>
+  </div>
+</form>
+
+<!-- BOOK LIST GRID -->
 {% if books %}
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
     {% for book in books %}
       <div class="col">
         <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(8px);">
 
-          <!-- Book Cover Container with FULL Image Display (No Cropping) -->
+          <!-- Cover Image Container -->
           <div class="position-relative text-center bg-light p-2" style="height: 240px; overflow: hidden;">
             {% if book.cover_image %}
               <img src="{{ book.cover_image.url }}" alt="{{ book.title }} cover" class="w-100 h-100" style="object-fit: contain; object-position: center;">
@@ -31,7 +71,7 @@
             </span>
           </div>
 
-          <!-- Book Details -->
+          <!-- Card Content -->
           <div class="card-body d-flex flex-column p-3">
             <h5 class="card-title fw-bold text-truncate mb-1" title="{{ book.title }}">{{ book.title }}</h5>
             <p class="card-subtitle text-muted small mb-2">
@@ -54,9 +94,10 @@
 {% else %}
   <div class="text-center p-5 bg-white rounded-4 border shadow-sm my-4">
     <div class="fs-1 mb-2">📚</div>
-    <h3>Your library is empty</h3>
-    <p class="text-muted">Start building your collection by adding your first book.</p>
-    <a class="btn btn-primary" href="{% url 'books:book_add' %}">Add your first book</a>
+    <h3>No books found</h3>
+    <p class="text-muted">Try resetting your filters or adding new books to your collection.</p>
+    <a href="{% url 'books:book_list' %}" class="btn btn-outline-primary me-2">Reset Filters</a>
+    <a href="{% url 'books:book_add' %}" class="btn btn-primary">+ Add New Book</a>
   </div>
 {% endif %}
 {% endblock %}

@@ -2,38 +2,114 @@
 {% block title %}{% if object %}Edit {{ object.title }}{% else %}Add New Book{% endif %} | BookNest{% endblock %}
 
 {% block content %}
-<div class="form-container">
-  <div class="form-header">
-    <h1>{% if object %}Edit "{{ object.title }}"{% else %}Add a New Book{% endif %}</h1>
-    <p>Fill out the details below to {% if object %}update{% else %}add{% endif %} the book.</p>
-  </div>
+<div class="row justify-content-center my-4">
+  <div class="col-md-8 col-lg-7">
+    <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+      <h1 class="h3 fw-bold mb-3 text-center">
+        {% if object %}Edit "{{ object.title }}"{% else %}Add a New Book{% endif %}
+      </h1>
 
-  <form method="post" enctype="multipart/form-data" class="app-form">
-    {% csrf_token %}
+      <form method="post" enctype="multipart/form-data" class="needs-validation">
+        {% csrf_token %}
 
-    {% if form.non_field_errors %}
-      <div class="alert alert-danger">
-        {{ form.non_field_errors }}
-      </div>
-    {% endif %}
-
-    {% for field in form %}
-      <div class="form-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-        {% if field.help_text %}
-          <small class="form-help">{{ field.help_text }}</small>
+        {% if form.non_field_errors %}
+          <div class="alert alert-danger rounded-3 p-2 small mb-3">
+            {{ form.non_field_errors }}
+          </div>
         {% endif %}
-        {% if field.errors %}
-          <div class="field-error">{{ field.errors|striptags }}</div>
-        {% endif %}
-      </div>
-    {% endfor %}
 
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Save Book</button>
-      <a href="{% url 'books:book_list' %}" class="btn btn-secondary">Cancel</a>
+        <!-- Custom Cover Image Upload Section -->
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Book Cover Image</label>
+
+          <!-- Hidden Native File Input (Triggers via JS) -->
+          {{ form.cover_image }}
+
+          <!-- Stylized Upload Box -->
+          <div class="cover-upload-zone text-center p-4 border border-2 border-dashed rounded-4 bg-light cursor-pointer position-relative"
+               id="uploadZone"
+               onclick="document.getElementById('id_cover_image').click();">
+
+            <div id="uploadPlaceholder" class="py-2">
+              <div class="display-6 mb-2">📸</div>
+              <h6 class="fw-bold mb-1 text-dark">Click to upload or drag cover image here</h6>
+              <p class="text-muted small mb-0">Supports JPG, PNG, WEBP</p>
+            </div>
+
+            <!-- Image Preview Box -->
+            <div id="imagePreviewContainer" class="d-none">
+              <img id="imagePreview" src="{% if object.cover_image %}{{ object.cover_image.url }}{% endif %}" alt="Cover Preview" class="rounded shadow-sm my-2" style="max-height: 180px; object-fit: contain;">
+              <p id="fileName" class="text-primary small fw-semibold mb-0">{% if object.cover_image %}Current Cover Loaded{% endif %}</p>
+              <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="event.stopPropagation(); clearCoverImage();">Remove Image</button>
+            </div>
+          </div>
+
+          {% if form.cover_image.errors %}
+            <div class="text-danger small mt-1">{{ form.cover_image.errors|striptags }}</div>
+          {% endif %}
+        </div>
+
+        <!-- Render remaining form fields (Excludes cover_image to prevent duplicate grey button) -->
+        {% for field in form %}
+          {% if field.name != 'cover_image' %}
+            <div class="mb-3">
+              <label for="{{ field.id_for_label }}" class="form-label fw-semibold small">{{ field.label }}</label>
+              {{ field }}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+              {% if field.errors %}
+                <div class="text-danger small mt-1">{{ field.errors|striptags }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        <!-- Action Buttons -->
+        <div class="d-flex gap-2 pt-3 border-top mt-4">
+          <button type="submit" class="btn btn-primary flex-grow-1 fw-semibold py-2">Save Book</button>
+          <a href="{% url 'books:book_list' %}" class="btn btn-outline-secondary px-4 py-2">Cancel</a>
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
 </div>
+
+<!-- JavaScript to Handle Cover Image Preview & File Choice -->
+<script>
+  const fileInput = document.getElementById('id_cover_image');
+  const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+  const previewContainer = document.getElementById('imagePreviewContainer');
+  const imagePreview = document.getElementById('imagePreview');
+  const fileName = document.getElementById('fileName');
+
+  // Load existing preview if editing a book that already has a cover
+  if (imagePreview.src && imagePreview.src !== window.location.href) {
+    uploadPlaceholder.classList.add('d-none');
+    previewContainer.classList.remove('d-none');
+  }
+
+  if (fileInput) {
+    fileInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          imagePreview.src = e.target.result;
+          fileName.textContent = file.name;
+          uploadPlaceholder.classList.add('d-none');
+          previewContainer.classList.remove('d-none');
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  function clearCoverImage() {
+    if (fileInput) fileInput.value = '';
+    imagePreview.src = '';
+    previewContainer.classList.add('d-none');
+    uploadPlaceholder.classList.remove('d-none');
+  }
+</script>
 {% endblock %}

@@ -1,11 +1,13 @@
 {% extends "base.html" %}
+{% load custom_filters %}  <!-- 👈 Load your custom template filter -->
+
 {% block title %}{{ book.title }} | BookNest{% endblock %}
 
 {% block content %}
-<article class="content-card p-4 my-3">
-  <!-- Header with Paddings and Proper Button Alignment -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <a href="{% url 'books:book_list' %}" class="btn btn-secondary">&larr; Back to collection</a>
+<article class="detail-container p-4 bg-white rounded-4 shadow-sm border my-4">
+  <!-- Navigation Header & Action Buttons -->
+  <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+    <a href="{% url 'books:book_list' %}" class="btn btn-outline-secondary">&larr; Back to collection</a>
     <div class="d-flex gap-2">
       <a href="{% url 'books:book_update' book.pk %}" class="btn btn-outline-dark">Edit Book</a>
       <a href="{% url 'books:book_delete' book.pk %}" class="btn btn-danger">Delete</a>
@@ -18,34 +20,47 @@
       {% if book.cover_image %}
         <img src="{{ book.cover_image.url }}" alt="{{ book.title }} Cover" class="img-fluid rounded shadow-sm" style="max-height: 380px; object-fit: cover;">
       {% else %}
-        <div class="bg-light border rounded d-flex align-items-center justify-content-center text-muted" style="height: 320px;">
-          No Cover Image
+        <div class="bg-light border rounded d-flex align-items-center justify-content-center text-muted fs-1" style="height: 320px;">
+          📖
         </div>
       {% endif %}
     </div>
 
     <!-- Book Info Column -->
     <div class="col-md-8">
-      <span class="text-uppercase text-muted small fw-bold d-block mb-1">{{ book.get_status_display }}</span>
+      <span class="badge bg-dark bg-opacity-75 text-uppercase px-3 py-2 rounded-pill mb-2">
+        {{ book.get_status_display }}
+      </span>
+
       <h1 class="display-5 fw-bold mb-2">{{ book.title }}</h1>
-      <p class="fs-5 text-secondary">
-        By <strong>{{ book.author.name }}</strong> &bull; Published {{ book.publication_year }}
+      <p class="fs-5 text-secondary mb-2">
+        By <strong>{{ book.author.name }}</strong> &bull; Published {% if book.publication_year %}{{ book.publication_year }}{% else %}N/A{% endif %}
       </p>
 
+      <!-- Custom Filter Applied Here -->
       {% if book.rating %}
-        <p class="fs-5 mb-3">Rating: <strong>{{ book.rating }} / 5</strong> ⭐</p>
+        <p class="fs-5 mb-3">
+          Rating: <strong>{{ book.rating }} / 5</strong>
+          <span class="ms-1">{{ book.rating|star_rating }}</span> <!-- 👈 Custom filter converts number to stars -->
+        </p>
       {% endif %}
 
-      <div class="mb-3">
-        {% for genre in book.genres.all %}
-          <span class="badge bg-primary me-1">{{ genre.name }}</span>
-        {% endfor %}
-      </div>
+      <!-- Genres Badges -->
+      {% if book.genres.all %}
+        <div class="mb-3">
+          {% for genre in book.genres.all %}
+            <span class="badge bg-primary me-1">{{ genre.name }}</span>
+          {% endfor %}
+        </div>
+      {% endif %}
 
-      <hr class="my-3">
+      <hr class="my-4">
 
-      <h3>Description</h3>
-      <p class="lead fs-6">{{ book.description|linebreaks }}</p>
+      <!-- Description -->
+      <h5>Description</h5>
+      <p class="text-secondary lead fs-6">
+        {{ book.description|default:"No description available for this book."|linebreaks }}
+      </p>
     </div>
   </div>
 </article>

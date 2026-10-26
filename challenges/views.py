@@ -39,7 +39,7 @@ class GoalUpdateView(SuccessMessageMixin, UpdateView):
     success_message = 'Reading goal updated successfully!'
 
     def get_success_url(self):
-        return reverse('challenges:goal_list', kwargs={'pk': self.object.pk})
+        return reverse('challenges:goal_list')
 
 
 
